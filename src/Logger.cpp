@@ -4,6 +4,8 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+#include <fcntl.h>
+#include <unistd.h>
 
 using namespace std; 
 
@@ -55,6 +57,23 @@ void Logger::logPacket(const Packet & pkt) {
         << "\n";
 
     csv.close();
+
+    // stream to dashboard via named pipe (non-blocking — silently skipped if dashboard isn't running)
+    std::ostringstream line;
+    line << pkt.timestamp << ","
+         << pkt.protocol << ","
+         << pkt.srcIP << ","
+         << pkt.srcPort << ","
+         << pkt.dstIP << ","
+         << pkt.dstPort << ","
+         << pkt.length << "\n";
+
+    int fd = open("/tmp/packet_stream", O_WRONLY | O_NONBLOCK);
+    if (fd != -1) {
+        std::string s = line.str();
+        write(fd, s.c_str(), s.size());
+        close(fd);
+    }
 }
 
 void Logger::logStats(int tcp, int udp, int icmp, int other, long totalBytes) {

@@ -1,4 +1,4 @@
-Timestamp,Protocol,SrcIP,SrcPort,DstIP,DstPort,Length
+timestamp,protocol,src_ip,src_port,dst_ip,dst_port,length
 2025-11-07 21:38:13,IPv6,,0,,0,91
 2025-11-07 21:38:13,IPv6,,0,,0,86
 2025-11-07 21:38:13,IPv6,,0,,0,86
