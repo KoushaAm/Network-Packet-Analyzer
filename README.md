@@ -2,6 +2,11 @@
 
 A network packet sniffer with real-time anomaly detection. The C++ sniffer captures live traffic and streams it to a Python dashboard that scores each packet using an Isolation Forest model trained on normal traffic.
 
+## Gallery
+<img width="1365" height="886" alt="Screenshot 2026-03-29 at 6 51 56 PM" src="https://github.com/user-attachments/assets/e4193e7d-5976-4a59-906d-309d612f27f1" />
+
+
+
 ## How it works
 
 1. The C++ sniffer captures packets via libpcap and writes them to `packets.csv` and a named pipe (`/tmp/packet_stream`)
