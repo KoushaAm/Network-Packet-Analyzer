@@ -117,7 +117,6 @@ scorer = PacketScorer()
 
 
 # Live State
-
 class LiveState:
     total: int = 0
     anomalies: int = 0
@@ -162,8 +161,7 @@ class LiveState:
         }
 
 
-# WebSocket clients 
-
+# webSocket clients : just in case we want to have multiple dashboard clients in the future
 clients: list[WebSocket] = []
 
 
@@ -226,8 +224,7 @@ def _pipe_thread(loop: asyncio.AbstractEventLoop):
             time.sleep(0.5)
 
 
-# ── Packet processor (async task)
-
+# Packet processor (async task)
 async def _packet_processor():
     while True:
         line = await packet_queue.get()
@@ -252,7 +249,6 @@ async def _packet_processor():
 
 
 #  App lifecycle 
-
 @app.on_event("startup")
 async def _startup():
     scorer.train(str(NORMAL_CSV))
@@ -262,7 +258,6 @@ async def _startup():
 
 
 #  Routes 
-
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
